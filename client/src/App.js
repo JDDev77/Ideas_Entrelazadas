@@ -5,7 +5,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          IDEAS ENTRELAZADAS, FUNCIONA MAMON
+          IDEAS ENTRELAZADAS, FUNCIONA MAMON EH
         </p>
       </header>
     </div>
