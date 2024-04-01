@@ -1,18 +1,25 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
     "error-handler": "^1.0.0",
-    "express": "^4.18.3",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
     "fs": "^0.0.1-security",
     "generate-api-key": "^1.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "log4js": "^6.9.1",
     "logger": "^0.0.1",
     "method-override": "^3.0.0",
+    "mongoose": "^8.2.3",
     "morgan": "^1.10.0",
     "passport": "^0.7.0",
     "path": "^0.12.7",
     "port": "^0.8.1",
+    "react-router-dom": "^6.22.3",
     "session": "^0.1.0"
   }
 }

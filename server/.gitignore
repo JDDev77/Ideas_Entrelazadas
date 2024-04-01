@@ -1,0 +1,35 @@
+
+# Dependencias
+/node_modules
+
+# Carpetas de producción
+/dist
+
+# Archivos de configuración de desarrollo
+/.env
+/.env.local
+/.env.development.local
+/.env.test.local
+/.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Directorios específicos de herramientas de desarrollo
+/.pnp
+.pnp.js
+
+# Archivos del compilador de TypeScript
+tsconfig.json
+
+# Directorios de cobertura de pruebas
+/coverage
+
+# Archivos de configuración del editor
+/.idea
+.vscode
+
+# Certificados
+/certificados
