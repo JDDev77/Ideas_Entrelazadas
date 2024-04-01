@@ -3,7 +3,7 @@ const Usuario = require("../models/usuarios.model")
 const wrapAsync = require("../utils/wrapAsync")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-require("../middlewares/apiKey.mw")
+require("../middlewares/auth-google.mw")
 const passport = require("passport")
 
 exports.findAllUsers = wrapAsync(async (req, res, next) => {
@@ -261,7 +261,7 @@ exports.renderIndexPage = wrapAsync(async (req, res) => {
       const token = jwt.sign({ check: true }, "secretJWT", { expiresIn: 1440 })
       req.session.jwtToken = token
       req.session.usLoginLogued = usLoginFoundData
-      res.redirect("/main")
+      res.redirect("/")
     } catch (error) {
       console.error("Error en el proceso de login:", error)
       res.render("error.ejs", { errorMessage: "Error procesando el login" })
@@ -315,7 +315,7 @@ exports.renderIndexPage = wrapAsync(async (req, res) => {
     req.session.jwtToken = token
     req.session.usLoginLogued = usuarioEncontrado
   
-    res.redirect("/main")
+    res.redirect("/")
   }
   
   exports.passportFailure = function (req, res) {

@@ -35,11 +35,11 @@ router.post("/reg", controladorLogin.createUserLogin)
 /*router.use((req, res, next) => {
     throw new AppError("Ruta no existente", 404) 
 }) 
-
+*/
 router.get("/auth/google", controladorLogin.passportAuthenticate)
 router.get("/auth/google/callback", controladorLogin.passportCallback)
 router.get("/auth/google/protected", controladorLogin.passportSuccess)
 router.get("/auth/google/failure", controladorLogin.passportFailure)
 router.get("/auth/google/logout", controladorLogin.passportLogout)
-*/
+
 module.exports = router;

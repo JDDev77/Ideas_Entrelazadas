@@ -7,20 +7,20 @@
 </head>
 <body>
     <div>
-        <form action="/reg" method="POST">
+        <form id="registration-form" action="/reg" method="POST">
             <h1>Registro de Usuario</h1>
 
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required /><br />
+            <label for="nombre">Nombre (opcional):</label>
+            <input type="text" id="nombre" name="nombre"><br />
 
-            <label for="apellido1">Primer Apellido:</label>
-            <input type="text" id="apellido1" name="apellido1" required /><br />
+            <label for="apellido1">Primer Apellido (opcional):</label>
+            <input type="text" id="apellido1" name="apellido1"><br />
 
-            <label for="apellido2">Segundo Apellido:</label>
-            <input type="text" id="apellido2" name="apellido2" required /><br />
+            <label for="apellido2">Segundo Apellido (opcional):</label>
+            <input type="text" id="apellido2" name="apellido2"><br />
 
-            <label for="fechaNac">Fecha de Nacimiento:</label>
-            <input type="date" id="fechaNac" name="fechaNac" required /><br />
+            <label for="fechaNac">Fecha de Nacimiento (opcional):</label>
+            <input type="date" id="fechaNac" name="fechaNac"><br />
 
             <label for="usuario">Usuario:</label>
             <input type="text" id="usuario" name="username" required /><br />
@@ -31,7 +31,7 @@
             <label for="perfil">Perfil:</label>
             <select id="perfil" name="profile">
                 <option value="ADMIN">Administrador</option>
-                <option value="USER">Usuario</option>
+                <option value="USER" selected>Usuario</option>
             </select><br />
 
             <label for="foto">URL de Foto (opcional):</label>
@@ -40,5 +40,21 @@
             <button type="submit">Registrarse</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            // Validaciones adicionales si son necesarias
+            var usuario = document.getElementById('usuario').value;
+            var contrasena = document.getElementById('contrasena').value;
+
+            // Validaciones específicas, por ejemplo, longitud de la contraseña
+            if (contrasena.length < 8) {
+                event.preventDefault(); // Detener el envío del formulario
+                alert('La contraseña debe tener al menos 8 caracteres.');
+            }
+            
+            // Aquí podrías agregar más validaciones según necesites
+        });
+    </script>
 </body>
 </html>

@@ -3,31 +3,31 @@ const mongoose = require("mongoose") //npm i mongoose
 const usuarioSchema = new mongoose.Schema({
     nombre:{
         type:String,
-        required:true
+        required:false
     },
     apellido1:{
         type:String,
-        required:true
+        required:false
     },
     apellido2:{
         type:String,
-        required:true
+        required:false
     },
     fechaNac:{
         type:Date,
-        required:true
+        required:false
     },
     username:{
         type:String,
-        required:true,
+        required:false,
     },
     password:{
         type:String,
-        required:true
+        required:false
     },
     profile: { // Implementación de roles
         type: String,
-        required: true,
+        required: false,
         enum: ["ADMIN", "USER"]
     },
     url: { // Para almacenar URL de fotos
