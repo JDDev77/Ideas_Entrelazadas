@@ -2,8 +2,6 @@ const mongoCon = require("../config/mongoDB.config");
 const Usuario = require("../models/usuarios.model");
 const bcrypt = require("bcrypt");
 
-const saltRounds = 10; // Número de rondas de sal para generar el hash
-
 const ejecutar = async () => {
     await mongoCon
         .conectarMongoDB()
@@ -14,12 +12,13 @@ const ejecutar = async () => {
             console.log(err);
         });
 
-    // Usuarios con contraseñas en texto plano
+   
     const usuarios = [
         {
             nombre: "Juan",
             apellido1: "Fetido",
             apellido2: "McFetido",
+            //TODO mirar como hacer que la hora al insertar la fecha no sea todo 00
             fechaNac: new Date("1993-07-07"),
             username: "juan",
             password: "juan123",
@@ -40,7 +39,7 @@ const ejecutar = async () => {
 
     // Encripta las contraseñas antes de insertar
     for (let usuario of usuarios) {
-        const hashedPassword = await bcrypt.hash(usuario.password, saltRounds);
+        const hashedPassword = await bcrypt.hash(usuario.password, 12);
         usuario.password = hashedPassword;
     }
 

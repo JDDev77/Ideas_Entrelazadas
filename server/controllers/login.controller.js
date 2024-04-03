@@ -167,7 +167,9 @@ exports.renderIndexPage = wrapAsync(async (req, res) => {
   exports.renderLogin = (req, res) => {
     res.render("login.ejs")
   }
-  
+  exports.renderPrueba = (req,res) => {
+    res.render("pruebas.ejs")
+  }
   exports.registerLogin = (req, res) => {
     res.render("regUsu.ejs")
   }
@@ -179,6 +181,7 @@ exports.renderIndexPage = wrapAsync(async (req, res) => {
       await mongoConn.conectarMongoDB()
       const newUser = new Usuario(req.body)
       newUser.password = await bcrypt.hash(newUser.password, 12)
+      //TODO al crear el usuario por defecto coge el rol user, cambiar a admin para crear uno
       newUser.profile = "USER"
       console.log(req.body)
       await newUser.save()
@@ -261,7 +264,7 @@ exports.renderIndexPage = wrapAsync(async (req, res) => {
       const token = jwt.sign({ check: true }, "secretJWT", { expiresIn: 1440 })
       req.session.jwtToken = token
       req.session.usLoginLogued = usLoginFoundData
-      res.redirect("/")
+      res.redirect("/pruebas.ejs")
     } catch (error) {
       console.error("Error en el proceso de login:", error)
       res.render("error.ejs", { errorMessage: "Error procesando el login" })

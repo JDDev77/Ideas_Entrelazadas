@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+//TODO revisar como hacer el esquema 
 const eventSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: String,

@@ -25,6 +25,7 @@ const basicAuth = require("../middlewares/basicAuth.mw")
 router.get("/usuarios", controladorLogin.findAllUsers)
 router.get("/", controladorLogin.renderLogin)
 router.post("/", controladorLogin.login)
+router.get("/pruebas", controladorLogin.renderPrueba)
 
 router.get("/reg", controladorLogin.registerLogin)
 router.post("/reg", controladorLogin.createUserLogin)
