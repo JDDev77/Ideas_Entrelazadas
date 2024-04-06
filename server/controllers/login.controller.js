@@ -264,7 +264,7 @@ exports.renderIndexPage = wrapAsync(async (req, res) => {
       const token = jwt.sign({ check: true }, "secretJWT", { expiresIn: 1440 })
       req.session.jwtToken = token
       req.session.usLoginLogued = usLoginFoundData
-      res.redirect("/pruebas.ejs")
+      res.redirect("/pruebas")
     } catch (error) {
       console.error("Error en el proceso de login:", error)
       res.render("error.ejs", { errorMessage: "Error procesando el login" })
