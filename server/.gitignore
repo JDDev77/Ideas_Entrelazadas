@@ -4,6 +4,7 @@
 
 # Carpetas de producción
 /dist
+/logs
 
 # Archivos de configuración de desarrollo
 /.env
