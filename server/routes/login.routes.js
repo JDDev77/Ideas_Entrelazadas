@@ -30,7 +30,7 @@ router.get("/pruebas", controladorLogin.renderPrueba)
 router.get("/reg", controladorLogin.registerLogin)
 router.post("/reg", controladorLogin.createUserLogin)
 
-//router.get("/logout", controladorLogin.logout)
+router.get("/logout", controladorLogin.logout)
 
 //router.get("/main", controladorLogin.renderMain)
 /*router.use((req, res, next) => {
