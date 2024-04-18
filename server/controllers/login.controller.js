@@ -234,43 +234,114 @@ exports.renderIndexPage = wrapAsync(async (req, res) => {
   }
   */
   
-  exports.logout = (req, res) => {
+  /*exports.logout = (req, res) => {
     jwt.sign(req.session.jwtToken, "", { expiresIn: 1 }, (logout, err) => {
       if (err) {
       }
     })
     req.session.destroy()
     res.redirect("/")
-  }
-  exports.login = async function (req, res) {
-    const { username, password } = req.body
+  }*/
+  
+  
+/*exports.login = async function (req, res) {
+    const { username, password } = req.body;
   
     try {
-      const usLoginFoundData = await Usuario.findOne({ username: username })
+        const usLoginFoundData = await Usuario.findOne({ username: username });
   
-      if (!usLoginFoundData) {
+        if (!usLoginFoundData) {
+            return res.render("login.ejs", { errorMessage: "Usuario no encontrado" });
+        }
+  
+        const validado = await bcrypt.compare(password, usLoginFoundData.password);
+  
+        if (!validado) {
+            return res.render("login.ejs", { errorMessage: "Contraseña incorrecta" });
+        }
+  
+        const token = jwt.sign({ check: true }, "secretJWT", { expiresIn: 1440 });
+        req.session.jwtToken = token;
+        req.session.usLoginLogued = usLoginFoundData;
         
-        return res.render("login.ejs", { errorMessage: "Usuario no encontrado" })
-      }
-  
-      const validado = await bcrypt.compare(password, usLoginFoundData.password)
-  
-      if (!validado) {
-        
-        return res.render("login.ejs", { errorMessage: "Contraseña incorrecta" })
-      }
-  
-      
-      const token = jwt.sign({ check: true }, "secretJWT", { expiresIn: 1440 })
-      req.session.jwtToken = token
-      req.session.usLoginLogued = usLoginFoundData
-      res.redirect("/pruebas")
+        // Asegúrate de que la URL y el puerto coincidan con donde tu React App está corriendo
+        res.redirect("http://localhost:3000");
     } catch (error) {
-      console.error("Error en el proceso de login:", error)
-      res.render("error.ejs", { errorMessage: "Error procesando el login" })
+        console.error("Error en el proceso de login:", error);
+        res.render("error.ejs", { errorMessage: "Error procesando el login" });
     }
+}
+*/
+exports.login = async function (req, res) {
+  const { username, password } = req.body;
+
+  try {
+      const usLoginFoundData = await Usuario.findOne({ username: username });
+
+      if (!usLoginFoundData) {
+          return res.render("login.ejs", { errorMessage: "Usuario no encontrado" });
+      }
+
+      const validado = await bcrypt.compare(password, usLoginFoundData.password);
+
+      if (!validado) {
+          return res.render("login.ejs", { errorMessage: "Contraseña incorrecta" });
+      }
+
+      // Aquí modificamos la línea donde se crea el token para incluir el username en el payload
+      const token = jwt.sign({
+          check: true,
+          username: usLoginFoundData.username // Incluye el username en el payload del token
+      }, "secretJWT", { expiresIn: 1440 });
+      
+      req.session.jwtToken = token;
+      req.session.usLoginLogued = usLoginFoundData;
+      
+      // Asegúrate de que la URL y el puerto coincidan con donde tu React App está corriendo
+      res.redirect("http://localhost:3000");
+      console.log("Sesion iniciada correctamente")
+  } catch (error) {
+      console.error("Error en el proceso de login:", error);
+      res.render("error.ejs", { errorMessage: "Error procesando el login" });
   }
-  
+}
+
+
+
+/*
+exports.logout = (req, res) => {
+    jwt.sign(req.session.jwtToken, "", { expiresIn: 1 }, (logout, err) => {
+        if (err) {
+            console.error('Error al cerrar sesión:', err);
+            return res.status(500).send('Error al cerrar sesión');
+        }
+    });
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error al destruir la sesión:', err);
+        } else {
+            console.log('Sesión cerrada correctamente');
+            // Redirigir al usuario a la página de inicio con una alerta
+            res.redirect("/?logout=true");
+        }
+    });
+};
+*/
+
+exports.logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error al destruir la sesión:', err);
+      return res.status(500).send({ message: 'Error al cerrar sesión' });
+    } else {
+      console.log('Sesión cerrada correctamente');
+      // Notifica al cliente que el logout fue exitoso
+      res.status(200).send({ logoutSuccess: true });
+    }
+  });
+};
+
+
 
   //AUHT GOOGLE
   exports.passportAuthenticate = passport.authenticate("google", {
@@ -318,16 +389,60 @@ exports.renderIndexPage = wrapAsync(async (req, res) => {
     req.session.jwtToken = token
     req.session.usLoginLogued = usuarioEncontrado
   
-    res.redirect("/")
+    res.redirect("/pruebas")
   }
   
   exports.passportFailure = function (req, res) {
     res.status(500).json({ msg: "Error de Google" })
   }
   
+  /*
   exports.passportLogout = function (req, res) {
     req.session.destroy()
     res.redirect("/login")
   }
+
+   exports.login = async function (req, res) {
+    const { username, password } = req.body
+  
+    try {
+      const usLoginFoundData = await Usuario.findOne({ username: username })
+  
+      if (!usLoginFoundData) {
+        
+        return res.render("login.ejs", { errorMessage: "Usuario no encontrado" })
+      }
+  
+      const validado = await bcrypt.compare(password, usLoginFoundData.password)
+  
+      if (!validado) {
+        
+        return res.render("login.ejs", { errorMessage: "Contraseña incorrecta" })
+      }
+  
+      
+      const token = jwt.sign({ check: true }, "secretJWT", { expiresIn: 1440 })
+      req.session.jwtToken = token
+      req.session.usLoginLogued = usLoginFoundData
+      res.redirect("/pruebas")
+    } catch (error) {
+      console.error("Error en el proceso de login:", error)
+      res.render("error.ejs", { errorMessage: "Error procesando el login" })
+    }
+  }
+  
+  */
+  exports.passportLogout = function (req, res) {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error al destruir la sesión:', err);
+        } else {
+            console.log('Sesión cerrada correctamente');
+            // Redirigir al usuario a la página de login con una alerta
+            res.redirect("/login?logout=true");
+        }
+    });
+};
+
   
   

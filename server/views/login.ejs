@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -30,7 +31,7 @@
         >
           Entrar como invitado
         </button>
-        <!-- Botón "Entrar con Google" -->
+        Botón "Entrar con Google" 
         <button
           class="button-google"
           onclick="window.location.href='/auth/google'"
@@ -40,4 +41,41 @@
       </div>
     </div>
   </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Iniciar sesión en Gestor</h2>
+        <form action="/" method="POST">
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" name="username" required />
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required />
+            <input type="submit" value="Iniciar sesión" class="button" />
+        </form>
+        <div class="buttons-container">
+            <button class="button" type="button" onclick="window.location.href='/reg'">Registrar Nuevo Usuario</button>
+            <button class="button" type="button" onclick="window.location.href='/main'">Entrar como invitado</button>
+            <!-- Botón "Entrar con Google" -->
+            <button class="button-google" onclick="window.location.href='/auth/google'">Entrar con Google</button>
+        </div>
+    </div>
+    
+    <script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('logout') === 'true') {
+            alert('Sesión cerrada correctamente.');
+        }
+    }
+    </script>
+</body>
 </html>
+
